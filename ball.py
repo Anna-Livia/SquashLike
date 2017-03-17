@@ -1,65 +1,37 @@
 class ball :
-    def __init__(self, size, startX, startY):
-        self.xBall = startX  # x-coordinate
-        self.yBall = startY  # y-coordinate
-        self.diametre = size  # Left and right angle offset
+    def __init__(self, diam, startX, startY):
+        self.x  = startX  # x-coordinate
+        self.y  = startY  # y-coordinate
+        self.diametre = diam  # Left and right angle offset
+        self.rad = diam/2
+        self.top = startY - diam/2
+        self.bottom = startY + diam/2
+        self.left = startX - diam/2
+        self.right = startY + diam/2
         self.xdirection = 1
         self.ydirection = 1
         self.counter = 0
+        self.xspeed = 5.8
+        self.yspeed = 10.2
 
-    def update(self, heroWidth, heroHeight ):
-        xspeed = 5.8  #Speed of the shape
-        yspeed = 10.2  #Speed of the shape
-        print("B is at " + str(self.yBall))
-        print("hero is at " + str(mouseY-(self.diametre/2)) + " and " + str(mouseY+(self.diametre/2)+heroHeight) )
+    def update(self):
+        self.x  = self.x  + ( self.xspeed * self.xdirection )
+        self.y  = self.y  + ( self.yspeed * self.ydirection )
+        self.top = self.y  - self.rad
+        self.bottom = self.y  + self.rad
+        self.left = self.x  - self.rad
+        self.right = self.x  + self.rad
         
-        if (self.yBall > mouseY-(self.diametre/2) and self.yBall < mouseY+(self.diametre/2)+heroHeight and self.xBall > mouseX and self.xBall < mouseX + heroWidth) :
-            
-            print("#######")   
-            print("paddle")
-            print("#######")
-            if self.ydirection == 1 and self.yBall + ( yspeed * self.ydirection )> mouseY -(self.diametre/2) :
-                self.counter = 1
-                print("Too close from top")
-            if self.ydirection == -1 and self.yBall + ( yspeed * self.ydirection )< mouseY+(self.diametre/2)+heroHeight  :
-                self.counter = -1
-                print("Too close from bottom")
-            
-            self.ydirection *= -1
-            yspeed *=2
-            
-        if (self.xBall > width-self.diametre or self.xBall < self.diametre) :
+        ellipse(self.x ,self.y ,self.diametre, self.diametre)
+        
+    def changeCourse(self,variable) :
+
+        if variable == "x" :
             self.xdirection *= -1
-            yspeed *= 3
-            print("Xwall")
             
-        if (self.yBall > height-self.diametre or self.yBall < self.diametre ) :
+        else :
             self.ydirection *= -1
-            yspeed *= 3
-            print("Ywall")
+
+            
             
         
-                    
-        self.xBall = self.xBall + ( xspeed * self.xdirection )
-        if (self.counter == 1 or self.counter == -1 ) :
-            if self.counter == 1 :
-                self.yBall = mouseY -(self.diametre/2)
-                print("you are on top at " + str(self.yBall))
-                print("as shown by mouseY " + str(mouseY -(self.diametre/2)))
-    
-                self.counter = 0
-            else :
-                self.yBall = mouseY+(self.diametre/2)+heroHeight
-                self.counter = 0
-                print("you are at the bottom at " + str(self.yBall))
-                print("as shown by mouseY +heroheight " + str((mouseY+(self.diametre/2)+heroHeight)))
-        else :
-            self.yBall = self.yBall + ( yspeed * self.ydirection )
-            
-        if self.ydirection == 1 :
-            print("coming from the top")
-        else :
-            print("coming from the bottom")
-        ellipse(self.xBall,self.yBall,self.diametre, self.diametre)
-        print("B is now at " + str(self.yBall))
-        print("hero is now at " + str(mouseY-(self.diametre/2)) + " and " + str(mouseY+(self.diametre/2)+heroHeight) )

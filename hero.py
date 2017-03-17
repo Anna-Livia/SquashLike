@@ -1,9 +1,21 @@
 class hero :
-    def __init__(self):
-        self.xHero = 0  # x-coordinate
-        self.yHero = 0  # y-coordinate
-        self.widthHero = 50  # Left and right angle offset
-        self.heightHero = 10  # Used to define the tilt
+    def __init__(self,widthHero, heightHero ):
+        self.x = mouseX  # x-coordinate
+        self.y = mouseY  # y-coordinate
+        self.widthHero = widthHero  # Left and right angle offset
+        self.heightHero = heightHero  # Used to define the tilt
+        self.top = self.y 
+        self.botom = self.y + self.heightHero
+        self.left = self.x
+        self.right = self.x + self.widthHero
         
-    def update(self,x,y):
-        rect(x,y,self.widthHero, self.heightHero)
+    def update(self):
+        
+        self.x = mouseX  # x-coordinate
+        self.y = mouseY  # y-coordinate
+        self.top = self.y 
+        self.botom = self.y + self.heightHero
+        self.left = self.x
+        self.right = self.x + self.widthHero
+        
+        rect(mouseX,mouseY,self.widthHero, self.heightHero)
